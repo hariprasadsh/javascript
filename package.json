@@ -2,7 +2,7 @@
   "name": "namastejs",
   "version": "1.0.0",
   "description": "learning from namastejs in youtube",
-  "main": "index.js",
+  "main": "namastejs.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

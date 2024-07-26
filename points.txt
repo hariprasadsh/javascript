@@ -1,0 +1,37 @@
+*disadvantages of closures
+ * over consumption of memory
+ * closure variables are not garbage collected
+ * if not handled properly, it may lead to memory leaks
+ * garbage collector frees up the unused memory
+ * js will do the garbage collection unlike c and c++
+
+*eventlisteners
+ * eventlisteners like closures take up memory
+ * good practice is to romove event listeners
+
+*eventloops, callback queue and microtask queue
+ * microtask queue has higher priority than the callback queue
+ * the callbacks coming from promises and mutation observers go to microtask queue
+ * all other callbacks go to callback queue
+
+*STARVATION of callback queue
+ * when the callback fn in microtask queue creates another microtask and it creates another and so on
+ * the callback queue never gets a chance to execute. This is called the starvation of the callback queue
+
+*Javascript runtime environment
+ * JIT - It uses both interpreter and compiler to run the JS code
+ * Interpreter converts the AST into bytecode
+ * Compiler works on the optimization
+ * Garbage collector - Mark and sweep algorithm
+
+*Higher order functions
+ * a fn that takes another fn as an argument or return a fn
+ * array.map() is a higher order function
+
+*Pure functions
+ * a pure function that always returns same output for same input
+
+*map, filter and reduce
+ * map is used to transform a given array
+ * filter is used to filter out an array
+ * reduce is used when you take all the elements of an array and come out with a single value
