@@ -1,3 +1,14 @@
+*Hoisting is a concept which enables us to extract values of variables and functions even before initialising/assigning value without getting error
+ * this is happening due to the 1st phase (memory creation phase) of the Execution Context.
+
+*web APIs
+ * setTimeout()
+ * fetch()
+ * DOM APIs (document.)
+ * localStorage()
+ * console
+ * location
+
 *disadvantages of closures
  * over consumption of memory
  * closure variables are not garbage collected
@@ -35,3 +46,53 @@
  * map is used to transform a given array
  * filter is used to filter out an array
  * reduce is used when you take all the elements of an array and come out with a single value
+
+*callbacks good and bad
+ * callbacks are a way of writing asynchronous code
+ * callback hell - happens when we nest multiple callback within a function (pyramid of doom)
+ * inversion of control - lose control of the code while using callbacks
+
+*promises
+ * a promise is an object representing an eventual completion or failure of an asyc. operation
+ * a promise object is a placeholder that fills it with data/error when an asynchronous operation is SETTELED
+ * a promise has a then() function which will call a callback function attached to it on successful completion of async. call
+ * promise will only call the callback function once
+ * the fetch() always returns a promise
+ * state of promise - pending, fulfilled, rejected
+ * promise objects are immutable (cannot be edited)
+ * by using promise chaining we can avoid the callback hell/pyramid of doom
+ * when we use promise chaining we always need to return the above promise
+ * we cannot cancel a promise
+
+*error handling in promises
+ * we can do that by using catch method of promise
+ * if catch method is at the end of promis chain and if an error occours in the first promise the execution will stop
+ * if there is any promise/then method after the catch means it will proceed
+ * ie, the catch method will only try to catch the errors of the promises above it
+
+*Promise APIs
+ * Promise.all() - when we do parallel api calls. handle multiple promises.
+    - it will accept an array/iterable of promises Promise.all([p1, p2,p3])
+    - it will wait for all the promises to complete
+    - it will give back an array of outputs
+    - if any one of the promises get rejected, Promis.all() will throw an error (the error that it gets from ther failed promise)
+    - as soon as it gets the error it will stop the execution and throw the error (fail fast)
+    - say if p1 takes 3s, p2 takes 1s and p3 takes 2s. if p2 failed, the execution will stop after exactly 1s
+ * Promise.allSettled() - if we do parallel api calls and its ok if some of them fails
+    - it will accept an array/iterable of promises Promise.allSettled([p1, p2,p3])
+    - it will wait for all promises to complete (it doesn't matter if its a success/failure)
+ * Promise.race() - it will return the value of first settled promise
+    - if the first promise to get settled fails, it will return the error from that promise
+ * Promise.any() - it will wit for the first successful promise
+    - if the promise that is supposed to be settled fails, it will wait for the next successful promise
+    - if everything fails, the return result will be an aggregate error (an array of the errors of all promises)
+    - success seeking api
+
+*async/await
+ * an async function always returns a promise
+ * if we returna a value, it will be wrapped inside a promise and returned
+ * if we try to return a promise, it will be returned as it is
+ * await is a keyword that can only be used inside an async function
+ * when we use async/await the JS engine will wait for that promise to be resolved before moving to the next line
+ * when JS sees a promise to be resolved inside an async function, it will suspend that function till the promise is resolved and keep on executing the rest of the code
+ * It is important to understand that the whole program will not get suspended

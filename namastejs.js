@@ -335,3 +335,131 @@ const finalUsers = users.reduce((acc, user) => {
 	return acc;
 }, []);
 console.log(finalUsers);
+
+// *callback hell eg.
+const cart = ["shoes", "bag", "shirt"];
+// api.createOrder(cart, () => {
+// api.proceedToPayment(() => {api.showOrderSummary()})});
+/**
+ * ! here in the above eg. we are giving the proceed to payment function to create order fn.
+ * ! we don't really know if create order will call the proceed to payment function
+ * ! this is called the inversion of control
+ */
+
+// * promise chaining eg.
+// createOrder(cart)
+// 	.then((orderId) => proceedToPayment(orderId))
+// 	.then((paymentInfo) => updateWallet(paymentInfo));
+
+// *create a promise
+// the following function will validate the cart. if valid it returns an orderid
+// if invalid it will return an error
+function createOrder(cart) {
+	const pr = new Promise((resolve, reject) => {
+		// validate the cart
+		if (cart.length > 0) {
+			resolve(Math.random() * cart.length);
+		} else {
+			reject(new Error("Cart is empty"));
+		}
+	});
+
+	return pr;
+}
+
+function proceedToPayment(orderId) {
+	return new Promise((resolve, reject) => {
+		if (orderId) {
+			// delay the result
+			setTimeout(() => resolve("payment successful"), 5000);
+		} else {
+			reject(new Error("payment failed"));
+		}
+	});
+}
+
+// *use the promise
+// createOrder(cart)
+// 	.then((orderId) => {
+// 		console.log("Order ID: " + orderId);
+// 		return orderId;
+// 	})
+// 	.then((orderId) => proceedToPayment(orderId)) // ! promise chaining
+// 	.then((result) => console.log(result))
+// 	.catch((error) => console.log("Couldn't create order: " + error.message));
+
+// *Promise APIs eg.
+const p1 = new Promise((resolve, reject) => {
+	setTimeout(() => {
+		resolve("P1 success");
+		//reject(new Error("P1 failed"));
+	}, 3000);
+});
+
+const p2 = new Promise((resolve, reject) => {
+	setTimeout(() => {
+		resolve("P2 success");
+		//reject(new Error("P2 failed"));
+	}, 1000);
+});
+
+const p3 = new Promise((resolve, reject) => {
+	setTimeout(() => {
+		resolve("P3 success");
+		//reject(new Error("P3 failed"));
+	}, 2000);
+});
+
+// *promise.all()
+
+// Promise.all([p1, p2, p3])
+// 	.then((values) => console.log(values))
+// 	.catch((error) => console.log("Error: " + error.message));
+
+// *promise.allSettled()
+
+// Promise.allSettled([p1, p2, p3]).then((results) => {
+// 	console.log(results);
+// 	// results.forEach((result) => {
+// 	// 	if (result.status === "fulfilled") {
+// 	// 		console.log(result.value);
+// 	// 	} else if (result.status === "rejected") {
+// 	// 		console.log("Error: " + result.reason.message);
+// 	// 	}
+// 	// });
+// });
+
+// *promise.race()
+
+// Promise.race([p1, p2, p3])
+// 	.then((result) => console.log(result))
+// 	.catch((error) => console.log("Error: " + error.message));
+
+// *promise.any()
+
+// Promise.any([p1, p2, p3])
+// 	.then((result) => console.log(result))
+// 	.catch((error) => console.log("Error: " + error.message));
+
+// *async/await eg.
+async function handleAsync() {
+	console.log("start of async function");
+	const promise = await p1;
+	console.log(promise); // (2)
+	console.log("end async function"); // ! this will be printed just after the promise is resolved (3)
+}
+//handleAsync();
+console.log("outside the async function"); // ! this will be printed before the promise is resolved (1)
+
+async function getUser() {
+	const API_URL = "https://api.github.com/users/hariprasadsh";
+
+	try {
+		const data = await fetch(API_URL);
+		console.log(await data.json()); // ! data.jason() again returns a PROMISE. hence await
+	} catch (error) {
+		console.error("Error: " + error.message);
+	}
+}
+
+getUser();
