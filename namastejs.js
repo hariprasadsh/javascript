@@ -1,3 +1,4 @@
+"use strict";
 // *closures
 function x() {
 	var a = 10;
@@ -196,7 +197,7 @@ x(function y() {
  * ! good practice is to romove event listeners
  */
 function attachEventListeners() {
-	count = 0;
+	const count = 0;
 	// add event listener to button
 	document.getElementById("buttonClick").addEventListener("click", () => {
 		console.log("clicked", ++count);
@@ -462,4 +463,79 @@ async function getUser() {
 	}
 }
 
-getUser();
+//getUser();
+
+// *call, apply and bind eg.
+const student1 = {
+	studName: "Hari",
+	printName: function () {
+		console.log(this.studName);
+	},
+};
+student1.printName();
+
+const student2 = { studName: "Sai" };
+
+// call eg.
+student1.printName.call(student2); // this will print the name sai
+
+const intro = function (hometown, district) {
+	console.log(
+		"Hi, I am " + this.studName + " from " + hometown + ", " + district
+	);
+};
+// ! we can also pass arguments to call function
+intro.call(student1, "Vazhottukonam", "Trivandrum");
+
+// apply eg.
+// ! here instead of individual arguments we will pass as an array
+intro.apply(student2, ["Sasthamangalam", "Trivandrum"]);
+
+// bind eg.
+// ! this will not directly invoke the method but returns the copy of exact same method which can be invoked later
+const myIntro = intro.bind(student1, "Vazhottukonam", "Trivandrum");
+console.log(myIntro());
+
+// this for arrow functions
+const obj = {
+	a: 100,
+	x: () => {
+		console.log(this);
+	},
+};
+obj.x(); // ! here this object will be the global object(window)
+
+// *function currying eg.
+// using bind method
+function multiply(a, b) {
+	return a * b;
+}
+const multiplyby2 = multiply.bind(this, 2);
+console.log(multiplyby2(2));
+
+const multiplyby3 = multiply.bind(this, 3);
+console.log(multiplyby3(2));
+
+// using closure
+let addition = function (a) {
+	return function (b) {
+		console.log(a + b);
+	};
+};
+let add2 = addition(2);
+add2(3); // result will be 2+3= 5
+
+let add3 = addition(3);
+add3(9); // result will be 3+9 = 12
+
+// ! interview question
+// *find the result sum(1)(2)(3)(4)...(n)
+let sumfn = function (a) {
+	return function (b) {
+		if (typeof b !== undefined) {
+			return sumfn(a + b);
+		}
+		return a;
+	};
+};
+console.log(sumfn(1)(2)());

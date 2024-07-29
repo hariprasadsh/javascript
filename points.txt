@@ -89,6 +89,7 @@
     - success seeking api
 
 *async/await
+ * asynch/await is a syntactic sugar for then/catch
  * an async function always returns a promise
  * if we returna a value, it will be wrapped inside a promise and returned
  * if we try to return a promise, it will be returned as it is
@@ -96,3 +97,48 @@
  * when we use async/await the JS engine will wait for that promise to be resolved before moving to the next line
  * when JS sees a promise to be resolved inside an async function, it will suspend that function till the promise is resolved and keep on executing the rest of the code
  * It is important to understand that the whole program will not get suspended
+
+*event bubbling and capturing
+ * bubble out the dom tree (child to parents)
+ * event capturing is also called trickling (trickling down parent to child)
+ * useCapture is the third argument passed to the addEventListener
+ * event bubling is used by default
+ * event.stopPropogation will stop the bubbling and capturing
+
+*this keyword
+ * global space - this keyword in global space will always have the value of global object
+   - inside the browser, the global object is window
+   - inside node it will be global
+   - this keyword works differently in strict and non strict mode
+ * inside a function - the value depends on strict/non-strict mode
+   - strict - the value is undefined
+   - non-strict - value is window object
+   - this keyword depends on how the function is called (say in strict mode)
+      -- if we call the function with a global object, this will be global object
+      -- if the function is called without global object this is undefined
+ * this substitution
+   - if the value of a this keyword is undefined or null, this keyword will be replaced with global object
+   - this happens only in non strict mode
+   - in strict mode this will be undefined
+ * difference between a functin and a method
+   - when u make a function a part of an object, it is called a method
+ * arrow functions do not have their own this. instead they take the  value of their enclosing lexical environment
+ * inside DOM element will give the reference to the HTML element
+
+*call, apply and bind methods
+ * used for sharing methods (function borrowing)
+
+*function currying
+ * technique in functional programming
+ * transforms a function of multiple arguments into several functions that take a single argument
+ * one way to do this by using bind method
+ * another way is to do it by closures
+
+*debouncing & throttling
+ * these concepts are used for optimising performance of a webapp
+ * by limiting the rate of function calls
+ * give the search bar in amazon as example (here debouncing make more sense)
+ * shooting game (throttling makes more sense)
+ * debouncing - if the difference between 2 key strokes is greater than a specific time say 300ms then it will trigger an api call
+ * throttling - if the difference between last function call and current function call is greater than a specific time, it will trigger api call
+ * which one is more efficient? it depends on the scenario
