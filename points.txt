@@ -99,11 +99,19 @@
  * It is important to understand that the whole program will not get suspended
 
 *event bubbling and capturing
- * bubble out the dom tree (child to parents)
+ * bubble out the dom tree (child to parents)(click, key-up)
  * event capturing is also called trickling (trickling down parent to child)
  * useCapture is the third argument passed to the addEventListener
  * event bubling is used by default
  * event.stopPropogation will stop the bubbling and capturing
+ * all the events are not bubbled up (blur, focus)
+
+*event delegation
+ * instead of attaching event handlers individually to every child, we should attach a single event handler to the parent
+ * eg. e-commerce website product list
+ * event delegation can only be achieved because there is event bubbling in javascript
+ * for event delegation to work, the events should bubble up.
+ * we cannot use stop propogation
 
 *this keyword
  * global space - this keyword in global space will always have the value of global object
@@ -142,3 +150,31 @@
  * debouncing - if the difference between 2 key strokes is greater than a specific time say 300ms then it will trigger an api call
  * throttling - if the difference between last function call and current function call is greater than a specific time, it will trigger api call
  * which one is more efficient? it depends on the scenario
+
+*async vs defer
+ * async - the scripts are fetched parallely. once fetched all the scripted are executed and then continues html execution
+   - does not guarantee the order of execution
+   - can be used while loading independent scripts
+ * defer - the script is fetched parallely but not executed. it will be executed only after the html execution is finished
+   - guarantee the order of execution
+   - always advisable to use defer
+
+*prototypes and prototypal inheritance
+ * prototype of object.prototype is null. eg. Object.__proto__.__proto__.__proto__ is null
+ * __proto__ -> WindowPrototype
+ * everything in JS is an object
+ * eg. there is an object obj1 and obj2. obj2.__proto__=obj1. This means obj2 will inherit all the properties of obj1(prototypal inheritance)
+
+ *cors
+  * cors - cross origin resource sharing
+  * a set of http headers that tells the browser if a web app can share data with another webapp
+  * both the web apps should be of different origin
+  * cors preflight (OPTIONS call)
+    - it is called before the actual api call
+    - check if call is valid or not
+    - set some additional HTTP headers and make back the OPTIONS call
+    - Access-control-allow-origin: *
+    - Access-control-allow-methods
+  * the browser categorises some requests as simple requests. it doesn't need preflight
+
+  
