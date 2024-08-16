@@ -83,15 +83,15 @@
     - it will wait for all promises to complete (it doesn't matter if its a success/failure)
  * Promise.race() - it will return the value of first settled promise
     - if the first promise to get settled fails, it will return the error from that promise
- * Promise.any() - it will wit for the first successful promise
+ * Promise.any() - it will wait for the first successful promise
     - if the promise that is supposed to be settled fails, it will wait for the next successful promise
     - if everything fails, the return result will be an aggregate error (an array of the errors of all promises)
     - success seeking api
 
 *async/await
- * asynch/await is a syntactic sugar for then/catch
+ * async/await is a syntactic sugar for then/catch
  * an async function always returns a promise
- * if we returna a value, it will be wrapped inside a promise and returned
+ * if we return a value, it will be wrapped inside a promise and returned
  * if we try to return a promise, it will be returned as it is
  * await is a keyword that can only be used inside an async function
  * when we use async/await the JS engine will wait for that promise to be resolved before moving to the next line
